@@ -10,12 +10,14 @@ def clear():
 
 def import_data(path):
     if not os.path.exists(path):
-        return dict()
-    with open(path, 'r', encoding='utf8') as f:
-        try:
-            return json.load(f)
-        except json.decoder.JSONDecodeError:
-            return dict()
+        data = dict()
+    else:
+        with open(path, 'r', encoding='utf8') as f:
+            try:
+                data = json.load(f)
+            except json.decoder.JSONDecodeError:
+                data = dict()
+    return data
 
 
 def add(key, val, path):
