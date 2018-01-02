@@ -12,23 +12,29 @@ class File:
     def __add__(self, other):
         # находим имя файла 1
         _, file_name = os.path.split(self.path)
+
         # находим путь к временной директории
         folder_path = tempfile.gettempdir()
+
         # создаем путь для новго файла с именем файла 1 во временной директории
         new_path = os.path.join(folder_path, file_name)
+
         # создаем объект класса File для результата сложения
-        new_file = File(new_path)
+        new_file = type(self)(new_path)
+
         # читаем файл 1 и файл 2 и складываем содержимое
         temp_string = self.read() + other.read()
+
         # пишем слитые данные в новый файл
         new_file.write(temp_string)
+
         return new_file
 
     def __iter__(self):
-        return iter(open(self.path))
+        return open(self.path)
 
     def __next__(self):
-        return next(open(self.path))
+        return next()
 
     def write(self, string):
         with open(self.path, 'w') as f:
